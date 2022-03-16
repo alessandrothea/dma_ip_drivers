@@ -24,6 +24,7 @@
  * @brief This file contains the declarations for qdma pcie kernel module
  *
  */
+#include <linux/version.h>
 #include <linux/types.h>
 #include <linux/pci.h>
 #include <linux/workqueue.h>
@@ -31,6 +32,13 @@
 
 #include "libqdma/libqdma_export.h"
 #include "cdev.h"
+
+
+#if defined(RHEL_RELEASE_CODE)
+# define PCI_AER_NAMECHANGE (RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(8, 3))
+#else
+# define PCI_AER_NAMECHANGE (LINUX_VERSION_CODE >= KERNEL_VERSION(5, 7, 0))
+#endif
 
 
 /**
